@@ -1,9 +1,10 @@
 import { NoteEditor } from "./components/common/NoteEditor.tsx";
 import { Header } from "./components/ui/Header.tsx";
 import { ConfigProvider, Tabs, theme } from "antd";
-import { ListItemDate, ThemeContextType } from "./types.tsx";
+import { ThemeContextType } from "./types.tsx";
 import { ListItem } from "./components/ui/ListItem.tsx";
 import { createContext, useState } from "react";
+import { noteListData } from "./mockData.ts";
 
 const getCurrentThemeSystem = () => {
   const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -18,21 +19,6 @@ function App() {
   const [currentTheme, setCurrentTheme] = useState<string>(
     getCurrentThemeSystem || "dark"
   );
-
-  const noteListData: ListItemDate[] = [
-    {
-      id: 1,
-      title: "Новая заметка 1",
-      date: "12:17",
-      content: "Начал делать домашку по React"
-    },
-    {
-      id: 2,
-      title: "Новая заметка 2",
-      date: "12:17",
-      content: "Начал делать домашку по React"
-    }
-  ];
 
   return (
     <ThemeContext.Provider value={{ currentTheme, setCurrentTheme }}>
