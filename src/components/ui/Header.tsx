@@ -3,16 +3,18 @@ import { SearchProps } from "antd/lib/input";
 import { Switch } from "antd";
 import { MoonOutlined, SunOutlined } from "@ant-design/icons";
 import { useContext } from "react";
-import { ThemeContext } from "../../App.tsx";
-
-const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
-  console.log(info?.source, value);
+import { SearchContext, ThemeContext } from "../../App.tsx";
 
 export const Header = () => {
   const theme = useContext(ThemeContext);
+  const search = useContext(SearchContext);
   const onChange = (checked: boolean) => {
-    console.log(checked);
     theme?.setCurrentTheme(checked ? "dark" : "light");
+  };
+
+  const onSearch: SearchProps["onSearch"] = (value, _e, info) => {
+    console.log(info?.source, value);
+    search?.setSearch(value);
   };
 
   return (
