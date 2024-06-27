@@ -15,3 +15,7 @@ export type ThemeContextType = {
 export type SearchContextType = {
   setSearch: React.Dispatch<React.SetStateAction<string>>;
 };
+
+export type NotesContextType = {
+  setNoteList: React.Dispatch<React.SetStateAction<ListItemDate[]>>;
+};

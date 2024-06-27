@@ -1,10 +1,11 @@
 import TextArea from "antd/es/input/TextArea";
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo, useContext, useEffect, useState } from "react";
 import { Button, Input } from "antd";
 import { ListItemDate } from "../../types.tsx";
 import Markdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { NotesContext } from "../../App.tsx";
 
 interface NoteEditorProps {
   data: ListItemDate;
@@ -15,6 +16,7 @@ export const NoteEditor: FC<NoteEditorProps> = memo(({ data, current }) => {
   const [title, setTitle] = useState(data.title);
   const [content, setContent] = useState(data.content);
   const [edit, setEdit] = useState(false);
+  const notes = useContext(NotesContext);
 
   const handleEdit = () => {
     setEdit(true);
@@ -22,6 +24,14 @@ export const NoteEditor: FC<NoteEditorProps> = memo(({ data, current }) => {
 
   const handleSave = () => {
     setEdit(false);
+    notes?.setNoteList(prevState =>
+      prevState.map(note => {
+        if (note.id === data.id) {
+          return { ...note, title, content };
+        }
+        return note;
+      })
+    );
   };
 
   const handleCancel = () => {
